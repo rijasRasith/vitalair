@@ -9,9 +9,9 @@ pip list | grep wave
 export PORT=${PORT:-8080}
 export H2O_WAVE_PORT=${PORT}
 export H2O_WAVE_LISTEN="0.0.0.0:${PORT}"
-export H2O_WAVE_ADDRESS="0.0.0.0"
-export H2O_WAVE_APP_ADDRESS="0.0.0.0"
-export H2O_WAVE_EXTERNAL_ADDRESS="0.0.0.0:${PORT}"
+export H2O_WAVE_ADDRESS="http://0.0.0.0:${PORT}"
+export H2O_WAVE_APP_ADDRESS="http://127.0.0.1:8000"
+export H2O_WAVE_EXTERNAL_ADDRESS="http://0.0.0.0:${PORT}"
 export H2O_WAVE_NO_LOG=false
 
 echo "Using port: $PORT"

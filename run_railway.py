@@ -19,11 +19,13 @@ if __name__ == "__main__":
     # Configure Wave environment
     os.environ["H2O_WAVE_PORT"] = port
     os.environ["H2O_WAVE_LISTEN"] = f"0.0.0.0:{port}"
-    os.environ["H2O_WAVE_ADDRESS"] = "0.0.0.0"
-    os.environ["H2O_WAVE_APP_ADDRESS"] = "0.0.0.0"
-    os.environ["H2O_WAVE_EXTERNAL_ADDRESS"] = f"0.0.0.0:{port}"
+    os.environ["H2O_WAVE_ADDRESS"] = f"http://0.0.0.0:{port}"
+    os.environ["H2O_WAVE_APP_ADDRESS"] = "http://127.0.0.1:8000"
+    os.environ["H2O_WAVE_EXTERNAL_ADDRESS"] = f"http://0.0.0.0:{port}"
     
     logger.info(f"Starting VitalAir app on port {port}")
+    logger.info(f"Wave address: {os.environ['H2O_WAVE_ADDRESS']}")
+    logger.info(f"App address: {os.environ['H2O_WAVE_APP_ADDRESS']}")
     
     # Use subprocess to start the Wave app properly
     cmd = ["python", "-m", "h2o_wave", "run", "--no-reload", "app"]
