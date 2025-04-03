@@ -1,0 +1,12 @@
+pandas
+matplotlib
+h2o-wave==0.26.3
+tabulate
+numpy
+python-telegram-bot>=20.0
+# Added for telegram bot functionality
+python-dateutil
+regex
+python-dotenv
+# For Railway deployment
+gunicorn

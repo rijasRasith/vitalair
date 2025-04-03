@@ -1,0 +1,11 @@
+[build]
+builder = "NIXPACKS"
+buildCommand = "pip install -r requirements.txt"
+
+[deploy]
+startCommand = "wave run --no-reload --address=0.0.0.0 --port=$PORT app"
+healthcheckPath = "/"
+healthcheckTimeout = 100
+
+[services.web]
+port = "$PORT" 
