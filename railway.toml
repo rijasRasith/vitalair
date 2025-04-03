@@ -4,8 +4,9 @@ buildCommand = "pip install -r requirements.txt && chmod +x start.sh"
 
 [deploy]
 startCommand = "sh start.sh"
-healthcheckPath = "/"
+healthcheckPath = "/site"
 healthcheckTimeout = 100
+restartPolicyType = "on_failure"
 
 [services.web]
 port = "$PORT" 
