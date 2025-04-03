@@ -144,13 +144,8 @@ if __name__ == "__main__":
     # Get port from environment variable or use default
     port = os.environ.get("PORT", "10101")
     
-    # Set the port in the environment for Wave to use
-    os.environ["H2O_WAVE_PORT"] = port
-    os.environ["H2O_WAVE_LISTEN"] = f"0.0.0.0:{port}"
-    os.environ["H2O_WAVE_ADDRESS"] = "0.0.0.0"
-    os.environ["H2O_WAVE_APP_ADDRESS"] = "0.0.0.0"
-    
     # Print startup message
     logger.info(f"Starting VitalAir application on port {port}")
     
-    # The Wave app will be run by the start.sh script
+    # Note: Environment variables should be set before importing this module
+    logger.info("App will be launched by the Wave server")
