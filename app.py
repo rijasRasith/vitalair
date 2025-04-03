@@ -48,12 +48,8 @@ def start_telegram_bot():
 
 @app('/site')
 async def server(q: Q):
-    # Start Telegram bot if not already running
-    global bot_thread
-    if bot_thread is None or not bot_thread.is_alive():
-        bot_thread = threading.Thread(target=start_telegram_bot, daemon=True)
-        bot_thread.start()
-        logger.info("Telegram bot thread started")
+    # Note: Telegram bot is now running as a separate process through Railway
+    # We don't need to start it in a thread from here
     
     # Apply the custom theme to the entire app
     if not q.client.initialized:

@@ -9,6 +9,13 @@ healthcheckTimeout = 180
 restartPolicyType = "on_failure"
 restartPolicyMaxRetries = 10
 
+# Web service configuration
 [services.web]
 port = "$PORT"
-internal_port = 8080 
+internal_port = 8080
+
+# Telegram bot service configuration
+[services.worker]
+command = "python run_telegram_bot.py"
+restartPolicyType = "on_failure"
+restartPolicyMaxRetries = 10 

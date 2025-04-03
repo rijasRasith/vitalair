@@ -207,13 +207,9 @@ def stop_bot():
         application.stop()
         is_running = False
 
-def run_bot_polling():
-    """Run the bot in a background thread with polling"""
+async def run_async_polling():
+    """Run the bot with polling, properly awaiting async operations"""
     global is_running, application
-    
-    # Set up new event loop for this thread
-    loop = asyncio.new_event_loop()
-    asyncio.set_event_loop(loop)
     
     try:
         # Create the Application
@@ -225,34 +221,37 @@ def run_bot_polling():
         application.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, message_handler))
         
         # Run the bot
-        logger.info("Starting Telegram bot...")
+        logger.info("Starting Telegram bot with async polling...")
         is_running = True
         
-        # Start the bot with the dedicated event loop
-        loop.run_until_complete(application.run_polling(allowed_updates=Update.ALL_TYPES))
+        # Start the bot with proper async handling
+        await application.initialize()
+        await application.start()
+        await application.updater.start_polling(allowed_updates=Update.ALL_TYPES)
+        
+        # Keep the bot running
+        while is_running:
+            await asyncio.sleep(1)
+            
     except Exception as e:
-        logger.error(f"Error running bot polling: {e}")
+        logger.error(f"Error in async polling: {e}")
     finally:
+        if application:
+            # Properly shutdown the application
+            await application.stop()
+            await application.shutdown()
         is_running = False
-        loop.close()
         logger.info("Bot has stopped")
 
-def main():
-    """Start the bot with proper threading support"""
-    global is_running, bot_thread
-    
-    # If already running, don't start again
-    if is_running:
-        logger.info("Bot is already running")
-        return
-    
-    try:
-        # Create and start a new thread for the bot
-        bot_thread = threading.Thread(target=run_bot_polling, daemon=True)
-        bot_thread.start()
-    except Exception as e:
-        logger.error(f"Error starting bot thread: {e}")
-        is_running = False
+async def async_main():
+    """Async entry point for the Telegram bot"""
+    await run_async_polling()
+
+# Entry point that can be used from run_telegram_bot.py
+if __name__ == "__main__":
+    # Run the async main function
+    import asyncio
+    asyncio.run(async_main())
 
 # Simple test function for direct console testing
 def test_query(query):
