@@ -11,4 +11,9 @@ restartPolicyMaxRetries = 10
 
 [services.web]
 port = "$PORT"
-internal_port = 8080 
+internal_port = 8080
+
+[services.telegram]
+startCommand = "python standalone_telegram_bot.py"
+restartPolicyType = "on_failure"
+restartPolicyMaxRetries = 10 

@@ -5,6 +5,9 @@ echo "Starting VitalAir application"
 python --version
 pip list | grep wave
 
+# Set the Railway environment flag
+export RAILWAY_ENVIRONMENT="production"
+
 # Set the H2O_WAVE_PORT environment variable
 export PORT=${PORT:-8080}
 export H2O_WAVE_PORT=${PORT}

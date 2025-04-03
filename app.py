@@ -21,6 +21,12 @@ bot_thread = None
 
 def start_telegram_bot():
     """Start the Telegram bot in a separate thread"""
+    # In Railway, the Telegram bot runs as a separate service
+    # Only start the bot in local development environment
+    if os.environ.get('RAILWAY_ENVIRONMENT') == 'production':
+        logger.info("Running in Railway - Telegram bot should be running as a separate service")
+        return
+        
     try:
         # Check if TELEGRAM_BOT_TOKEN is set
         token = os.getenv('TELEGRAM_BOT_TOKEN')
@@ -48,9 +54,9 @@ def start_telegram_bot():
 
 @app('/site')
 async def server(q: Q):
-    # Start Telegram bot if not already running
+    # Start Telegram bot if not already running and not in Railway
     global bot_thread
-    if bot_thread is None or not bot_thread.is_alive():
+    if os.environ.get('RAILWAY_ENVIRONMENT') != 'production' and (bot_thread is None or not bot_thread.is_alive()):
         bot_thread = threading.Thread(target=start_telegram_bot, daemon=True)
         bot_thread.start()
         logger.info("Telegram bot thread started")
