@@ -1,9 +1,7 @@
-# Common build configuration
 [build]
 builder = "NIXPACKS"
-buildCommand = "pip install -r requirements.txt && chmod +x start.sh && chmod +x telegram_start.sh"
+buildCommand = "pip install -r requirements.txt && chmod +x start.sh"
 
-# Web service configuration
 [deploy]
 startCommand = "sh start.sh"
 healthcheckPath = "/"
@@ -12,19 +10,5 @@ restartPolicyType = "on_failure"
 restartPolicyMaxRetries = 10
 
 [services.web]
-# Web service settings
-name = "web"
-startCommand = "sh start.sh"
 port = "$PORT"
-internal_port = 8080
-healthcheckPath = "/"
-healthcheckTimeout = 180
-restartPolicyType = "on_failure"
-restartPolicyMaxRetries = 10
-
-# Telegram bot service configuration
-[services.telegram]
-name = "telegram-bot"
-startCommand = "sh telegram_start.sh"
-restartPolicyType = "on_failure"
-restartPolicyMaxRetries = 10 
+internal_port = 8080 
