@@ -1,1 +1,1 @@
-web: wave run --no-reload --address=0.0.0.0 --port=$PORT app 
+web: sh start.sh 

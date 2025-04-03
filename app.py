@@ -142,10 +142,12 @@ async def server(q: Q):
 # Add this section for Railway deployment
 if __name__ == "__main__":
     # Get port from environment variable or use default
-    port = int(os.environ.get("PORT", 10101))
+    port = os.environ.get("PORT", "10101")
+    
+    # Set the port in the environment for Wave to use
+    os.environ["H2O_WAVE_PORT"] = port
     
     # Print startup message
     logger.info(f"Starting VitalAir application on port {port}")
     
-    # The Wave app will be run by the 'wave run' command in the Procfile
-    # No need to add additional code here
+    # The Wave app will be run by the start.sh script

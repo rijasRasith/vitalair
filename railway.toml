@@ -1,9 +1,9 @@
 [build]
 builder = "NIXPACKS"
-buildCommand = "pip install -r requirements.txt"
+buildCommand = "pip install -r requirements.txt && chmod +x start.sh"
 
 [deploy]
-startCommand = "wave run --no-reload --address=0.0.0.0 --port=$PORT app"
+startCommand = "sh start.sh"
 healthcheckPath = "/"
 healthcheckTimeout = 100
 
