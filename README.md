@@ -164,10 +164,7 @@ The application uses air quality data from 12 monitoring stations in Tamil Nadu,
 
 This project is licensed under the MIT License - see the LICENSE file for details.
 
-## Acknowledgments
 
-- H2O.ai for the Wave framework
-- Contributors to the python-telegram-bot library
-- All the team members who worked on developing the forecasting models
+
 
 HRI prediction and potential health risks mapping for all those 12 stations is pending
